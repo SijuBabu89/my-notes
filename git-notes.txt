@@ -1,0 +1,11 @@
+git init
+git add .
+git status
+git commit -m 'initial'
+
+git branch 'branch-name'
+git checkout 'branch-name'
+
+git remote add origin https://github.com/SijuBabu89/buddywindow.git
+
+git push origin 'branch-name'
