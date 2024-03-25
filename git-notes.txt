@@ -9,3 +9,4 @@ git checkout 'branch-name'
 git remote add origin https://github.com/SijuBabu89/buddywindow.git
 
 git push origin 'branch-name'
+Git pull origin 'branch-name'
