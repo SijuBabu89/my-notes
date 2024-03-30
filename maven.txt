@@ -1,0 +1,82 @@
+## To generate a multi module maven project.
+-----------------------------------------
+
+First, let’s create a parent project:
+-------------------------------------
+-> mvn archetype:generate -DgroupId=com.buddywindow -DartifactId=buddywindow-foundation
+Once the parent is generated, we have to open the pom.xml file located in the parent’s directory and add the packaging as pom:
+-> <packaging>pom</packaging>
+
+## Creating Submodules
+-------------------
+-> cd parent-project
+-> mvn archetype:generate -DgroupId=com.buddywindow -DartifactId=core-service
+-> mvn archetype:generate -DgroupId=com.buddywindow -DartifactId=core-common
+-> mvn archetype:generate -DgroupId=com.buddywindow -DartifactId=core-persistence
+Once, the above sub modules are created we need to confirm two things,
+
+-> 1 - Go to the parent pom and check whether the below module tags are created in the parent pom.
+
+<modules>
+    <module>core-service</module>
+    <module>core-common</module>
+    <module>core-persistence</module>
+</modules>
+
+-> 2 - Go to the sub modules poms and check whether the below parent tag is created. 
+
+<parent>
+  <artifactId>buddywindow-foundation</artifactId>
+  <groupId>com.buddywindow</groupId>
+  <version>1.0-SNAPSHOT</version>
+</parent>
+
+-> Also, make sure the packing in the sub modules are jar
+-> <packing>jar</packing>
+
+## Building the Project
+--------------------
+
+Building the projects.
+-> Go to parent project directoty 'buddywindow-foundation' and run below maven command
+-> mvn packing
+
+## Enable Dependency Management in Parent Project
+-------------------------------------------------
+
+Dependency management -  Dependency management is to centralizing the dependency information for mult module project and it sub modules.
+When you have a set of projects or modules that inherit a common parent, you can put all the required information about the dependencies in the parent pom.xml file. 
+This will simplify the references to the artifacts in the child POMs.
+
+Parent POM.
+-----------
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.3.16</version>
+        </dependency>
+        //...
+    </dependencies>
+</dependencyManagement>
+
+Child POM
+----------
+<dependencies>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+    </dependency>
+    //...
+</dependencies>
+
+Here child only need to use the groupid and artifactid, the version will be overried from the parent.
+
+But, when the child wants to use different version then you can include that in the dependency
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>4.3.30.RELEASE</version>
+</dependency>
