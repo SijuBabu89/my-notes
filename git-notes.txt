@@ -1,4 +1,5 @@
 git init
+git add README.md
 git add .
 git status
 git commit -m 'initial'
@@ -6,7 +7,10 @@ git commit -m 'initial'
 git branch 'branch-name'
 git checkout 'branch-name'
 
-git remote add origin https://github.com/SijuBabu89/buddywindow.git
+git branch -M main
+git remote add origin https://github.com/SijuBabu89/python-repo.git
+git push -u origin main
+git push -f origin main
 
 git push origin 'branch-name'
 Git pull origin 'branch-name'
